@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   audit:
-    uses: COPUR/EV_PNC_infra-modules/.github/workflows/ci-auditor.yml@ec915555511c16de2bbade224fa54a71e4d0b2bb # EV_PNC_infra-modules
+    uses: COPUR/EV_PNC_infra-modules/.github/workflows/ci-auditor.yml@fea3badde8c959c4a0ae50ab55ee86a7eecbfd83 # EV_PNC_infra-modules
     with:
       public: true
-      auditor-ref: ec915555511c16de2bbade224fa54a71e4d0b2bb # same commit as above; selects the scripts the workflow runs
+      auditor-ref: fea3badde8c959c4a0ae50ab55ee86a7eecbfd83 # same commit as above; selects the scripts the workflow runs
