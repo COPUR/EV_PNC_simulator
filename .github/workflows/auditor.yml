@@ -1,0 +1,20 @@
+name: auditor
+
+# Calls the shared CI auditor in COPUR/EV_PNC_infra-modules: gitleaks secret scan (project rules
+# + this repo's .gitleaks.toml) and repository / workflow hygiene checks. See auditor/README.md there.
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1" # weekly full-history rescan
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    uses: COPUR/EV_PNC_infra-modules/.github/workflows/ci-auditor.yml@ec915555511c16de2bbade224fa54a71e4d0b2bb # EV_PNC_infra-modules
+    with:
+      public: true
+      auditor-ref: ec915555511c16de2bbade224fa54a71e4d0b2bb # same commit as above; selects the scripts the workflow runs
