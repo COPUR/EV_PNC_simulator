@@ -1,0 +1,4 @@
+# False positives, reviewed: a synthetic RFID uid (04A1B2C3D4E5F6) after the word "token_uid" reads as an API key.
+# The sample was replaced in the next commit; these fingerprints cover only the two occurrences in 17cf059.
+17cf059ec2b9c4ad9f045ec4329105827d2ae95e:docs/gireve-mock.md:generic-api-key:47
+17cf059ec2b9c4ad9f045ec4329105827d2ae95e:src/ev_pnc_simulator/gireve/driver.py:generic-api-key:138
