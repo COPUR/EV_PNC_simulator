@@ -9,6 +9,7 @@ from __future__ import annotations
 HUB_COUNTRY, HUB_PARTY = "FR", "107"  # pre-production IOP party, from the profile
 CPO_COUNTRY, CPO_PARTY = "FR", "ABC"
 EMSP_COUNTRY, EMSP_PARTY = "TR", "TST"
+DEFAULT_UID = "04AABBCCDDEEFF"  # synthetic 7-byte RFID uid; low entropy on purpose so secret scanners leave it alone
 
 
 def location(n: int, updated: str) -> dict:

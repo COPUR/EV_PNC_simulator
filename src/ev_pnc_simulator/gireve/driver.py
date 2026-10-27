@@ -135,7 +135,7 @@ async def call(hub: Hub, key: str, spec: dict) -> dict:
     cc, party = fixtures.CPO_COUNTRY, fixtures.CPO_PARTY
     method, params, body = "PUT", None, spec.get("body")
     if key == "authorize":
-        uid = spec.get("token_uid", "04A1B2C3D4E5F6")
+        uid = spec.get("token_uid", fixtures.DEFAULT_UID)
         url = f"{_endpoint(hub, 'tokens').rstrip('/')}/{uid}/authorize"
         method, params = "POST", {"type": spec.get("type", "RFID")}
         body = body if body is not None else {"location_id": "LOC0001", "evse_uids": ["FR*ABC*E10001"]}

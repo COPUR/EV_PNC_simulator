@@ -44,7 +44,7 @@ curl -XPOST :8081/_mock/drive/register -d '{"versions_url":"http://emsp/ocpi/ver
 curl -XPOST :8081/_mock/rules -d '{"operation":"command","do":{"command_result":"REJECTED"},"times":1}'
 # 4. Push a location, authorize, send a CDR
 curl -XPOST :8081/_mock/drive/location-put -d '{}'
-curl -XPOST :8081/_mock/drive/authorize    -d '{"token_uid":"04A1B2C3D4E5F6"}'
+curl -XPOST :8081/_mock/drive/authorize    -d '{"token_uid":"04AABBCCDDEEFF"}'
 curl -XPOST :8081/_mock/drive/cdr-post     -d '{"remark":"[?] price not significant"}'
 ```
 
