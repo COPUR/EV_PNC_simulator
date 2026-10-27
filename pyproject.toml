@@ -17,6 +17,7 @@ test = ["pytest>=8"]
 
 [project.scripts]
 ev-pnc-hubject-mock = "ev_pnc_simulator.hubject.__main__:main"
+ev-pnc-gireve-mock = "ev_pnc_simulator.gireve.__main__:main"
 
 [build-system]
 requires = ["hatchling"]

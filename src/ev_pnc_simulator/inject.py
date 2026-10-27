@@ -9,6 +9,8 @@ rule with hits left wins. What a rule does (`do`):
     {"http_status": 500, "body": {...}}         the same with a body of your own
     {"rate_limit": {"retry_after_s": 30}}       HTTP 429 with Retry-After
     {"delay_ms": 12000}                         wait first; alone it only slows the normal answer
+    {"ocpi_status": 2003, "message": "..."}     OCPI mocks: HTTP 200 and an OCPI envelope with that status_code
+    {"command_result": "REJECTED"}              OCPI mocks: the CommandResult the CPO side reports back later
 
 A dropped connection cannot be produced under ASGI; use a delay above the client's timeout instead.
 """
@@ -29,7 +31,11 @@ ACTION_KEYS = {
     "additional_info",
     "body",
     "headers",
+    "ocpi_status",
+    "command_result",
+    "message",
 }
+PRIMARY_KEYS = {"status_code", "http_status", "rate_limit", "delay_ms", "ocpi_status", "command_result"}
 
 
 class RuleError(ValueError):
@@ -79,6 +85,9 @@ class RuleSet:
     _lock: Any = field(default_factory=threading.Lock)
 
     def add(self, spec: dict, known_operations: set[str]) -> Rule:
+        stray = set(spec) - {"operation", "when", "do", "times"}
+        if stray:
+            raise RuleError(f"unknown rule keys: {sorted(stray)} (a rule has operation, when, do, times)")
         operation = spec.get("operation", "*")
         if operation != "*" and operation not in known_operations:
             raise RuleError(f"unknown operation {operation!r}")
@@ -88,10 +97,10 @@ class RuleSet:
         unknown = set(do) - ACTION_KEYS
         if unknown:
             raise RuleError(f"unknown action keys: {sorted(unknown)}")
-        if not {"status_code", "http_status", "rate_limit", "delay_ms"} & set(do):
-            raise RuleError("`do` needs one of status_code, http_status, rate_limit, delay_ms")
-        if "status_code" in do and "http_status" in do:
-            raise RuleError("use status_code or http_status, not both")
+        if not PRIMARY_KEYS & set(do):
+            raise RuleError(f"`do` needs one of {', '.join(sorted(PRIMARY_KEYS))}")
+        if len({"status_code", "http_status", "ocpi_status"} & set(do)) > 1:
+            raise RuleError("use one of status_code, http_status, ocpi_status")
         times = spec.get("times")
         if times is not None and (not isinstance(times, int) or times < 1):
             raise RuleError("`times` must be a positive integer")

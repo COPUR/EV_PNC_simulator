@@ -7,7 +7,7 @@ checkout. When the pins move, the tests say what broke.
 
 ```bash
 make contracts                       # fetch the pinned contracts into .contracts/
-make test                            # 60 tests
+make test                            # 60 tests (Hubject), more for GIREVE
 uv run python -m ev_pnc_simulator.hubject --port 8080 [--enforce-aup] [--no-auth]
 ```
 

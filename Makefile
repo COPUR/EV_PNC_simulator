@@ -26,3 +26,9 @@ smoke:
 	curl -fs localhost:18080/_mock/health | grep -q '"mock":"hubject"' || (docker logs evpnc-sim-smoke; docker stop evpnc-sim-smoke; exit 1)
 	curl -fs -XPOST localhost:18080/evsepull/v21/providers/TRTST/status-records -H 'content-type: application/json' -d '{"ProviderID":"TRTST"}' | grep -q EvseStatuses
 	docker stop evpnc-sim-smoke
+	docker run -d --rm --name evpnc-gir-smoke -p 18081:8081 ev-pnc-simulator:dev \
+		python -m ev_pnc_simulator.gireve --host 0.0.0.0 --port 8081 --public-url http://localhost:18081
+	for i in $$(seq 1 30); do curl -fs localhost:18081/_mock/health >/dev/null && break; sleep 1; done
+	curl -fs localhost:18081/_mock/health | grep -q '"mock":"gireve"' || (docker logs evpnc-gir-smoke; docker stop evpnc-gir-smoke; exit 1)
+	curl -s localhost:18081/ocpi/versions | grep -q '"status_code":2000' || (docker logs evpnc-gir-smoke; docker stop evpnc-gir-smoke; exit 1)
+	docker stop evpnc-gir-smoke

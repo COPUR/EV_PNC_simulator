@@ -10,5 +10,7 @@ COPY contracts.lock /contracts.lock
 ENV EV_PNC_CONTRACTS_DIR=/contracts
 RUN useradd --system --uid 10001 sim
 USER sim
-EXPOSE 8080
+# Hubject by default; the GIREVE mock is the same image with another command:
+#   docker run ev-pnc-simulator python -m ev_pnc_simulator.gireve --host 0.0.0.0 --port 8081 --public-url http://<host>:8081
+EXPOSE 8080 8081
 CMD ["python", "-m", "ev_pnc_simulator.hubject", "--host", "0.0.0.0", "--port", "8080"]

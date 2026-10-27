@@ -53,3 +53,10 @@ def sha256(name: str) -> str:
         if fname.strip() == name:
             return digest
     raise KeyError(name)
+
+
+def profile_sha256(name: str) -> str:
+    """Hash of a profile file (profiles/ has no SHA256SUMS)."""
+    import hashlib
+
+    return hashlib.sha256((contracts_dir() / "profiles" / name).read_bytes()).hexdigest()
