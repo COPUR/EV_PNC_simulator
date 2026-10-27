@@ -1,0 +1,4 @@
+# The EV_PNC_hub-contracts commit this simulator is tested against. `make contracts` fetches it into .contracts/.
+# Move it together with a test run; nothing else in this repo names a contract version.
+repo=https://github.com/COPUR/EV_PNC_hub-contracts
+commit=ba4f2f82e91177d41ed03182eaaf8bffdd1c0194

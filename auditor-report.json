@@ -1,0 +1,30 @@
+[
+  {
+    "level": "warning",
+    "check": "required-files",
+    "path": ".github/CODEOWNERS",
+    "line": 0,
+    "message": "no CODEOWNERS file"
+  },
+  {
+    "level": "warning",
+    "check": "workflow-unpinned-action",
+    "path": ".github/workflows/ci.yml",
+    "line": 15,
+    "message": "`actions/checkout@v4` is not pinned to a full commit SHA"
+  },
+  {
+    "level": "warning",
+    "check": "workflow-unpinned-action",
+    "path": ".github/workflows/ci.yml",
+    "line": 16,
+    "message": "`astral-sh/setup-uv@v5` is not pinned to a full commit SHA"
+  },
+  {
+    "level": "warning",
+    "check": "workflow-unpinned-action",
+    "path": ".github/workflows/ci.yml",
+    "line": 26,
+    "message": "`actions/checkout@v4` is not pinned to a full commit SHA"
+  }
+]
